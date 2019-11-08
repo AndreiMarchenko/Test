@@ -2,17 +2,17 @@
 
 namespace console\controllers;
 
-use Yii;
+//use Yii;
+use console\models\Mailer;
+use console\models\User;
+use console\models\News;
 
 class MailerController extends \yii\console\Controller {
 
-    public function actionSend() {
-        Yii::$app->mailer->compose()
-        ->setFrom('andreymarchanka4@gmail.com')
-        ->setTo('andreymarchanka5@gmail.com')
-        ->setSubject('Тема сообщения')
-        ->setTextBody('Текст сообщения')
-        ->setHtmlBody('<b>lox</b>')
-        ->send();
+    public static function actionSend() {
+        $users = User::GetList();    
+        $news = News::GetList();
+        Mailer::Send($users, $news);
     }
+    
 }
